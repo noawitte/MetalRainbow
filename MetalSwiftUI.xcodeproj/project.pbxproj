@@ -14,6 +14,7 @@
 		8500893A2ABF3CB70032933E /* MetalSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850089392ABF3CB70032933E /* MetalSwiftUITests.swift */; };
 		850089442ABF3CB70032933E /* MetalSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850089432ABF3CB70032933E /* MetalSwiftUIUITests.swift */; };
 		850089462ABF3CB70032933E /* MetalSwiftUIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850089452ABF3CB70032933E /* MetalSwiftUIUITestsLaunchTests.swift */; };
+		850089532ABF3D5C0032933E /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 850089522ABF3D5C0032933E /* Shader.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		8500893F2ABF3CB70032933E /* MetalSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetalSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		850089432ABF3CB70032933E /* MetalSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalSwiftUIUITests.swift; sourceTree = "<group>"; };
 		850089452ABF3CB70032933E /* MetalSwiftUIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalSwiftUIUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		850089522ABF3D5C0032933E /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				850089282ABF3CB30032933E /* MetalSwiftUIApp.swift */,
 				8500892A2ABF3CB30032933E /* ContentView.swift */,
+				850089522ABF3D5C0032933E /* Shader.metal */,
 				8500892C2ABF3CB70032933E /* Assets.xcassets */,
 				8500892E2ABF3CB70032933E /* Preview Content */,
 			);
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850089532ABF3D5C0032933E /* Shader.metal in Sources */,
 				8500892B2ABF3CB30032933E /* ContentView.swift in Sources */,
 				850089292ABF3CB30032933E /* MetalSwiftUIApp.swift in Sources */,
 			);

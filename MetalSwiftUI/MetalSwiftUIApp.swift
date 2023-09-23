@@ -11,7 +11,7 @@ import SwiftUI
 struct MetalSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ShaderUse_Snippet()
         }
     }
 }
