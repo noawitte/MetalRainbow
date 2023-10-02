@@ -10,7 +10,7 @@ struct ShaderUse_Snippet: View {
             Image(systemName: "rainbow")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(stripes)
+                .colorEffect(gradient)
                 
             Spacer()
             controls
@@ -24,6 +24,10 @@ struct ShaderUse_Snippet: View {
             .float(stripeAngle),
             .color(.blue)
         )
+    }
+    
+    var gradient: Shader {
+        ShaderLibrary.circleFill(.boundingRect)
     }
 
     @ViewBuilder

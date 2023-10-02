@@ -11,3 +11,9 @@ angledFill(float2 position, float width, float angle, half4 color)
     float rotatedY = pMagnitude * sin(pAngle);
     return (color + color * fmod(abs(rotatedX + rotatedY), width) / width) / 2;
 }
+
+[[ stitchable ]] half4 circleFill(float2 position, half4 color, float4 rect) {
+    float b = position.y / rect[3];
+    
+    return half4(0.1, 0.5, b, 1);
+}
