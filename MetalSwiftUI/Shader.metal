@@ -1,19 +1,22 @@
 #include <metal_stdlib>
 using namespace metal;
 
-[[ stitchable ]] half4
-angledFill(float2 position, float width, float angle, half4 color)
-{
-    float pMagnitude = sqrt(position.x * position.x + position.y * position.y);
-    float pAngle = angle +
-        (position.x == 0.0f ? (M_PI_F / 2.0f) : atan(position.y / position.x));
-    float rotatedX = pMagnitude * cos(pAngle);
-    float rotatedY = pMagnitude * sin(pAngle);
-    return (color + color * fmod(abs(rotatedX + rotatedY), width) / width) / 2;
-}
-
 [[ stitchable ]] half4 circleFill(float2 position, half4 color, float4 rect) {
-    float b = position.y / rect[3];
-    
-    return half4(0.1, 0.5, b, 1);
+    // Set the center of the semicircle to the top center of the rect
+    float2 center = float2(rect[2] * 0.5f, rect[3]);
+
+    // Compute the distance from the current position to the center
+    float distanceToCenter = length(position - center);
+
+    // The maximum distance will be half the width of the rectangle (radius of the half-circle)
+    float maxDistance = rect[2] * 0.5f;
+
+    // Normalize the distance to the range [0, 1]
+    float normalizedDistance = clamp(distanceToCenter / maxDistance, 0.0f, 1.0f);
+
+    // If the position is below the diameter of the circle, make it transparent
+    half alpha = position.y > center.y - maxDistance ? 1.0h : 0.0h;
+
+    // Apply the gradient: Using normalizedDistance as the blue component for the gradient
+    return half4(0.1h, 0.5h, half(normalizedDistance), alpha);
 }
