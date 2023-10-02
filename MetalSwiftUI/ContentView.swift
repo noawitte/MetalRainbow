@@ -1,8 +1,13 @@
 import SwiftUI
 
 struct ShaderUse_Snippet: View {
+    let startDate = Date()
+    var time: Float {
+        Float(startDate.timeIntervalSinceNow / 5)
+    }
+
     var body: some View {
-        VStack {
+        TimelineView(.animation) { context in
             Image(systemName: "rainbow")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -11,13 +16,16 @@ struct ShaderUse_Snippet: View {
                     Image(systemName: "rainbow")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .padding(.top, 20)
                 }
-                
         }
     }
 
     var gradient: Shader {
-        ShaderLibrary.circleFill(.boundingRect)
+        ShaderLibrary.circleGradient(
+            .boundingRect,
+            .float(time)
+        )
     }
 }
 

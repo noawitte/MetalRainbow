@@ -1,22 +1,43 @@
 #include <metal_stdlib>
 using namespace metal;
 
-[[ stitchable ]] half4 circleFill(float2 position, half4 color, float4 rect) {
-    // Set the center of the semicircle to the top center of the rect
+half3 hsl2rgb(half3 hsl) {
+    half l = hsl.z;
+    half s = hsl.y;
+    half c = (1.0 - abs(2.0 * l - 1.0)) * s;
+    float h = float(hsl.x * 6.0h);
+    half x = c * (1.0 - abs(fmod(h, 2.0f) - 1.0));
+    half3 result;
+
+    if (h < 1.0) {
+        result = half3(c, x, 0);
+    } else if (h < 2.0) {
+        result = half3(x, c, 0);
+    } else if (h < 3.0) {
+        result = half3(0, c, x);
+    } else if (h < 4.0) {
+        result = half3(0, x, c);
+    } else if (h < 5.0) {
+        result = half3(x, 0, c);
+    } else {
+        result = half3(c, 0, x);
+    }
+
+    return result + l - c * 0.5;
+}
+
+
+[[ stitchable ]] half4 circleGradient(float2 position, half4 color, float4 rect, float time) {
     float2 center = float2(rect[2] * 0.5f, rect[3]);
-
-    // Compute the distance from the current position to the center
     float distanceToCenter = length(position - center);
-
-    // The maximum distance will be half the width of the rectangle (radius of the half-circle)
     float maxDistance = rect[2] * 0.5f;
-
-    // Normalize the distance to the range [0, 1]
     float normalizedDistance = clamp(distanceToCenter / maxDistance, 0.0f, 1.0f);
 
-    // If the position is below the diameter of the circle, make it transparent
+    // Incorporate time into hue calculation to animate the gradient.
+    float hue = fract(normalizedDistance + time);
+    half3 rainbowColor = hsl2rgb(half3(hue, 0.6h, 0.5h));
+
     half alpha = position.y > center.y - maxDistance ? 1.0h : 0.0h;
 
-    // Apply the gradient: Using normalizedDistance as the blue component for the gradient
-    return half4(0.1h, 0.5h, half(normalizedDistance), alpha);
+    return half4(rainbowColor, alpha);
 }
